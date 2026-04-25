@@ -32,30 +32,7 @@ textarea {
   font: inherit;
 }
 
-.rain-layer {
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.rain-logo {
-  position: absolute;
-  top: -80px;
-  width: 52px;
-  height: 52px;
-  object-fit: cover;
-  border-radius: 14px;
-  opacity: 0;
-  animation: fall var(--dur, 1800ms) linear forwards;
-  transform: translateY(-80px) rotate(var(--rot, 0deg));
-  box-shadow: -4px 4px 0 rgba(0,0,0,0.12);
-}
-
 .page-shell {
-  position: relative;
-  z-index: 2;
   width: min(1280px, calc(100% - 32px));
   margin: 0 auto;
   padding: 24px 0 48px;
@@ -104,7 +81,7 @@ textarea {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  margin-bottom: 2rem;
+  margin-bottom: 1.2rem;
 }
 
 .metric-label {
@@ -178,7 +155,41 @@ textarea {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
+  margin-bottom: 1.4rem;
+}
+
+.physics-stage {
+  width: min(100%, 1040px);
   margin-bottom: 2rem;
+}
+
+.physics-note {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 6px 10px;
+  border: 2px solid var(--text);
+  background: #fff;
+  font-size: 0.8rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.physics-box {
+  position: relative;
+  width: 100%;
+  height: 420px;
+  border: 4px solid var(--text);
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.6), rgba(235,235,235,0.9));
+  box-shadow: -10px 10px 0 var(--shadow);
+  overflow: hidden;
+}
+
+.physics-box canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
 }
 
 .controls-head {
@@ -340,17 +351,6 @@ textarea {
   letter-spacing: 0.04em;
 }
 
-.pill {
-  display: inline-flex;
-  padding: 6px 10px;
-  border: 2px solid var(--text);
-  background: #fff;
-  font-size: 0.8rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-}
-
 .table-wrap {
   overflow: auto;
 }
@@ -401,20 +401,6 @@ th {
   color: var(--muted);
 }
 
-@keyframes fall {
-  0% {
-    opacity: 0;
-    transform: translateY(-80px) rotate(var(--rot, 0deg));
-  }
-  8% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    transform: translateY(110vh) rotate(calc(var(--rot, 0deg) + 24deg));
-  }
-}
-
 @media (max-width: 900px) {
   .stats-grid {
     grid-template-columns: 1fr;
@@ -422,6 +408,10 @@ th {
 
   .controls {
     justify-content: center;
+  }
+
+  .physics-box {
+    height: 360px;
   }
 }
 
@@ -441,5 +431,9 @@ th {
 
   .metric-value {
     font-size: clamp(6rem, 28vw, 10rem);
+  }
+
+  .physics-box {
+    height: 320px;
   }
 }

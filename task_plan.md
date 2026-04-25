@@ -1,18 +1,18 @@
 # Task Plan
 
 ## Goal
-Redesign `howmanypolymarkets` around a bold editorial metric aesthetic inspired by the Variant reference: giant centered multiplier, sparse supporting copy, chunky chain toggles, and a logo-rain interaction keyed to chain capacity.
+Replace the temporary logo-rain effect with a persistent physics-based Polymarket logo pile that more honestly reflects chain capacity and feels more visceral.
 
 ## Phases
-- [in_progress] Replace current dark dashboard layout with poster-style metric layout
-- [pending] Add chain-triggered Polymarket logo rain animation
-- [pending] Preserve comparison data section in a secondary role
-- [pending] Commit and push redesign
+- [in_progress] Integrate lightweight browser physics for falling logo tokens
+- [pending] Tie token count to chain capacity with reasonable performance handling
+- [pending] Update hero interaction to rebuild the pile on chain change
+- [pending] Commit and push physics pass
 
 ## Decisions
-- Prioritize layout and interaction over final copy polish
-- Keep the site static and lightweight
-- Cap visible logo rain for extreme values while preserving the feeling of scale
+- Use client-side browser physics
+- Prioritize accurate visual count for the current dataset
+- Preserve the giant metric-first layout
 
 ## Errors Encountered
 - None yet

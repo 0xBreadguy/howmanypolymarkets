@@ -1,5 +1,5 @@
 const polymarketGasPerSec = 11;
-const visibleRainCap = 42;
+const MatterLib = window.Matter;
 
 const selector = document.getElementById('selector');
 const tableBody = document.getElementById('tableBody');
@@ -12,10 +12,15 @@ const metricLabelEl = document.getElementById('metricLabel');
 const metricDeltaEl = document.getElementById('metricDelta');
 const selectedChainLineEl = document.getElementById('selectedChainLine');
 const vizSummaryEl = document.getElementById('vizSummary');
-const rainLayer = document.getElementById('rainLayer');
+const physicsBox = document.getElementById('physicsBox');
 
 let chains = [];
 let activeChain = null;
+let engine;
+let render;
+let runner;
+let boundaries = [];
+let tokenBodies = [];
 
 function formatInstances(value) {
   return value >= 10 ? value.toFixed(0) : value.toFixed(1);
@@ -105,32 +110,112 @@ function animateMetric() {
   setTimeout(() => instancesEl.classList.remove('updating'), 180);
 }
 
-function clearRain() {
-  rainLayer.innerHTML = '';
+function setupPhysics() {
+  const { Engine, Render, Runner, Bodies, Composite } = MatterLib;
+  const width = physicsBox.clientWidth;
+  const height = physicsBox.clientHeight;
+
+  physicsBox.innerHTML = '';
+
+  engine = Engine.create({
+    gravity: { x: 0, y: 1.05 },
+  });
+
+  render = Render.create({
+    element: physicsBox,
+    engine,
+    options: {
+      width,
+      height,
+      wireframes: false,
+      background: 'transparent',
+      pixelRatio: window.devicePixelRatio || 1,
+    },
+  });
+
+  runner = Runner.create();
+  Render.run(render);
+  Runner.run(runner, engine);
+
+  const wallThickness = 80;
+  boundaries = [
+    Bodies.rectangle(width / 2, height + wallThickness / 2, width + wallThickness * 2, wallThickness, { isStatic: true, render: { visible: false } }),
+    Bodies.rectangle(-wallThickness / 2, height / 2, wallThickness, height * 2, { isStatic: true, render: { visible: false } }),
+    Bodies.rectangle(width + wallThickness / 2, height / 2, wallThickness, height * 2, { isStatic: true, render: { visible: false } }),
+  ];
+
+  Composite.add(engine.world, boundaries);
 }
 
-function triggerRain(chain) {
-  clearRain();
-  const logoPath = './assets/brand/polymarket-logo.jpg';
-  const count = Math.min(Math.max(Math.round(chain.instances), 1), visibleRainCap);
-  const overflow = Math.max(0, Math.round(chain.instances) - count);
+function clearTokens() {
+  if (!engine) return;
+  const { Composite } = MatterLib;
+  Composite.remove(engine.world, tokenBodies);
+  tokenBodies = [];
+}
 
-  for (let i = 0; i < count; i++) {
-    const img = document.createElement('img');
-    img.className = 'rain-logo';
-    img.src = logoPath;
-    img.alt = '';
-    img.style.left = `${Math.random() * 100}%`;
-    img.style.setProperty('--dur', `${1400 + Math.random() * 1200}ms`);
-    img.style.setProperty('--rot', `${-18 + Math.random() * 36}deg`);
-    img.style.animationDelay = `${Math.random() * 300}ms`;
-    rainLayer.appendChild(img);
-    setTimeout(() => img.remove(), 3200);
+function buildPile(chain) {
+  if (!engine) return;
+  clearTokens();
+
+  const { Bodies, Composite } = MatterLib;
+  const width = physicsBox.clientWidth;
+  const baseCount = Math.max(chain.fullInstances, 1);
+  const radius = width < 700 ? 18 : 20;
+  const tokenSize = radius * 2;
+  const logoPath = './assets/brand/polymarket-logo.jpg';
+
+  for (let i = 0; i < baseCount; i++) {
+    const body = Bodies.rectangle(
+      70 + Math.random() * Math.max(width - 140, 40),
+      -120 - (i * 18),
+      tokenSize,
+      tokenSize,
+      {
+        restitution: 0.18,
+        friction: 0.7,
+        frictionAir: 0.012,
+        chamfer: { radius: 10 },
+        angle: (Math.random() - 0.5) * 0.35,
+        render: {
+          sprite: {
+            texture: logoPath,
+            xScale: tokenSize / 64,
+            yScale: tokenSize / 64,
+          },
+        },
+      }
+    );
+    tokenBodies.push(body);
   }
 
-  vizSummaryEl.textContent = overflow > 0
-    ? `${count}+ logos raining`
-    : `${count} logos raining`;
+  if (chain.fraction > 0.08) {
+    const partial = Bodies.rectangle(
+      width / 2,
+      -200 - baseCount * 12,
+      tokenSize,
+      tokenSize,
+      {
+        restitution: 0.18,
+        friction: 0.7,
+        frictionAir: 0.012,
+        chamfer: { radius: 10 },
+        angle: -0.18,
+        render: {
+          opacity: 0.45,
+          sprite: {
+            texture: logoPath,
+            xScale: tokenSize / 64,
+            yScale: tokenSize / 64,
+          },
+        },
+      }
+    );
+    tokenBodies.push(partial);
+  }
+
+  Composite.add(engine.world, tokenBodies);
+  vizSummaryEl.textContent = `${chain.fullInstances}${chain.fraction > 0.08 ? ' + partial' : ''} logos in pile`;
 }
 
 function renderStats(chain, withMotion = false) {
@@ -149,8 +234,18 @@ function renderAll(withMotion = false) {
   renderSelector();
   renderStats(activeChain, withMotion);
   renderTable();
-  if (withMotion) triggerRain(activeChain);
+  buildPile(activeChain);
 }
+
+window.addEventListener('resize', () => {
+  if (!activeChain) return;
+  if (render) {
+    MatterLib.Render.stop(render);
+    MatterLib.Runner.stop(runner);
+  }
+  setupPhysics();
+  buildPile(activeChain);
+});
 
 async function init() {
   const response = await fetch('./data/chains.json');
@@ -168,9 +263,9 @@ async function init() {
     };
   });
 
+  setupPhysics();
   activeChain = chains[0];
   renderAll(false);
-  triggerRain(activeChain);
 }
 
 init().catch(error => {

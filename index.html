@@ -9,10 +9,9 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./src/css/styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/matter-js@0.20.0/build/matter.min.js"></script>
 </head>
 <body>
-  <div class="rain-layer" id="rainLayer" aria-hidden="true"></div>
-
   <main class="page-shell">
     <section class="hero-stage">
       <div class="context-header">
@@ -28,10 +27,15 @@
 
       <div class="selected-chain-line" id="selectedChainLine"></div>
 
+      <div class="physics-stage">
+        <div class="physics-note" id="vizSummary">0 logos in pile</div>
+        <div class="physics-box" id="physicsBox" aria-hidden="true"></div>
+      </div>
+
       <div class="controls-head">
         <div>
           <div class="controls-title">Select a chain</div>
-          <div class="controls-sub">Switch chains and watch the Polymarkets rain down.</div>
+          <div class="controls-sub">Switch chains and watch the pile rebuild with real Polymarket tokens.</div>
         </div>
       </div>
 
@@ -58,7 +62,6 @@
 
       <div class="table-head">
         <h2>Chain comparison</h2>
-        <div class="pill" id="vizSummary">0 logos shown</div>
       </div>
 
       <div class="table-wrap">
