@@ -1,0 +1,66 @@
+[
+  {
+    "name": "MegaETH",
+    "execBlockTime": "10ms",
+    "metadataBlock": "1s",
+    "gasLimitPerBlock": "3,700M",
+    "gasPerSec": 3700,
+    "accent": "#7cff9f"
+  },
+  {
+    "name": "Monad",
+    "execBlockTime": "400ms",
+    "metadataBlock": "400ms",
+    "gasLimitPerBlock": "200M",
+    "gasPerSec": 500,
+    "accent": "#c190ff"
+  },
+  {
+    "name": "Base",
+    "execBlockTime": "200ms",
+    "metadataBlock": "2s",
+    "gasLimitPerBlock": "400M",
+    "gasPerSec": 200,
+    "accent": "#5db4ff"
+  },
+  {
+    "name": "BNB Chain",
+    "execBlockTime": "450ms",
+    "metadataBlock": "450ms",
+    "gasLimitPerBlock": "55M",
+    "gasPerSec": 122,
+    "accent": "#ffd86b"
+  },
+  {
+    "name": "Polygon PoS",
+    "execBlockTime": "2s",
+    "metadataBlock": "2s",
+    "gasLimitPerBlock": "120M",
+    "gasPerSec": 60,
+    "accent": "#b08cff"
+  },
+  {
+    "name": "Optimism",
+    "execBlockTime": "250ms",
+    "metadataBlock": "2s",
+    "gasLimitPerBlock": "60M",
+    "gasPerSec": 30,
+    "accent": "#ff6b7a"
+  },
+  {
+    "name": "Avalanche C",
+    "execBlockTime": "~1s",
+    "metadataBlock": "1.5s",
+    "gasLimitPerBlock": "40M",
+    "gasPerSec": 27,
+    "accent": "#ff875c"
+  },
+  {
+    "name": "Arbitrum One",
+    "execBlockTime": "250ms",
+    "metadataBlock": "250ms",
+    "gasLimitPerBlock": "32M",
+    "gasPerSec": 7,
+    "accent": "#7bd1ff"
+  }
+]
