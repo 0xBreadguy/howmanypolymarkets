@@ -11,6 +11,7 @@ const descriptionEl = document.getElementById('description');
 const eyebrowChainEl = document.getElementById('eyebrowChain');
 const vizSummaryEl = document.getElementById('vizSummary');
 const statPanel = document.getElementById('statPanel');
+const selectedChainLogo = document.getElementById('selectedChainLogo');
 
 let chains = [];
 let activeChain = null;
@@ -149,6 +150,7 @@ function renderStats(chain) {
   descriptionEl.textContent = getDescription(chain);
   eyebrowChainEl.textContent = chain.name;
   statPanel.style.setProperty('--accent', chain.accent);
+  selectedChainLogo.innerHTML = logoMarkup(chain, 'selected-logo-img');
 }
 
 function renderAll() {

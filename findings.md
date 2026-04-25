@@ -1,17 +1,8 @@
 # Findings
 
-## Restructure Goals
-- Current site is a single `index.html` file.
-- Bread wants a project structure that supports ongoing editing and gathering brand assets.
-- Best structure should separate:
-  - source files
-  - chain data
-  - brand/visual assets
-  - docs/instructions
-
-## Proposed Layout
-- `src/` for HTML/CSS/JS source
-- `data/` for chain throughput data
-- `assets/` for logos, screenshots, icons, brand files
-- `docs/` for content/brand notes and contribution instructions
-- root `index.html` can stay as deploy entry, or reference `src/` assets directly
+## Visual priorities
+- Hero should feel more like a product/argument, less like a toy demo.
+- Chain selector can act as a visual roster with logos and stronger state contrast.
+- Big stat area should anchor the selected chain more clearly.
+- Stack cards should feel branded and dense without becoming noisy.
+- We should add a small methodology / framing note, but not turn the page into a wall of text.

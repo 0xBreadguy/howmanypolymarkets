@@ -11,20 +11,49 @@
   <div class="wrap">
     <section class="hero">
       <div class="card intro">
-        <div class="eyebrow">⚖️ Polymarket capacity simulator</div>
+        <div class="hero-topline">
+          <div class="eyebrow">⚖️ Polymarket capacity simulator</div>
+          <div class="hero-badge">~11M gas/sec baseline</div>
+        </div>
         <h1>How many Polymarkets fit on your chain?</h1>
         <p class="lead">
-          Polymarket is estimated to consume about <strong>11M gas/sec</strong>. Pick a chain and see how many parallel Polymarket-scale apps its throughput can realistically support.
+          A simple way to visualize how much real application capacity different chains can support. Pick a chain and see how many parallel <strong>Polymarket-scale</strong> apps its throughput can sustain.
         </p>
+
+        <div class="hero-strip">
+          <div class="hero-strip-card">
+            <div class="hero-strip-k">Reference app</div>
+            <div class="hero-strip-v hero-strip-brand">
+              <img src="./assets/brand/polymarket-logo.jpg" alt="Polymarket logo" class="hero-brand-logo" />
+              <span>Polymarket</span>
+            </div>
+          </div>
+          <div class="hero-strip-card">
+            <div class="hero-strip-k">Throughput target</div>
+            <div class="hero-strip-v">11M gas/sec</div>
+          </div>
+          <div class="hero-strip-card">
+            <div class="hero-strip-k">Question</div>
+            <div class="hero-strip-v">How many can fit?</div>
+          </div>
+        </div>
+
+        <div class="selector-head">
+          <h2>Select a chain</h2>
+          <p>Use the chain roster below to swap the view instantly.</p>
+        </div>
         <div class="selector" id="selector"></div>
       </div>
 
       <div class="card stat-panel" id="statPanel">
-        <div>
-          <div class="eyebrow" id="eyebrowChain">Selected chain</div>
-          <div class="big-stat" id="instances">0x</div>
-          <div class="big-label">simultaneous Polymarkets</div>
-          <div class="big-sub" id="description"></div>
+        <div class="stat-header">
+          <div>
+            <div class="eyebrow" id="eyebrowChain">Selected chain</div>
+            <div class="big-stat" id="instances">0x</div>
+            <div class="big-label">simultaneous Polymarkets</div>
+            <div class="big-sub" id="description"></div>
+          </div>
+          <div class="selected-chain-logo" id="selectedChainLogo"></div>
         </div>
         <div class="mini-grid">
           <div class="mini">
@@ -47,7 +76,7 @@
       <div class="viz-head">
         <div>
           <h2>Capacity rendered as stacked Polymarkets</h2>
-          <p>Each card represents one Polymarket-scale app running at roughly 11M gas/sec.</p>
+          <p>Each tile represents one Polymarket-scale app running at roughly 11M gas/sec.</p>
         </div>
         <div class="pill" id="vizSummary">0 cards shown</div>
       </div>
@@ -55,6 +84,12 @@
     </section>
 
     <section class="card table-card">
+      <div class="table-head">
+        <div>
+          <h2>Full comparison</h2>
+          <p>Throughput figures and rough Polymarket-equivalent capacity across the compared chains.</p>
+        </div>
+      </div>
       <table>
         <thead>
           <tr>
@@ -69,7 +104,7 @@
         <tbody id="tableBody"></tbody>
       </table>
       <div class="footer-note">
-        Assumption: one Polymarket instance uses ~11M gas/sec. Values shown are illustrative and based on the throughput figures provided. Arbitrum One uses the listed <em>7M gas/sec speed limit</em> figure.
+        Assumption: one Polymarket instance uses ~11M gas/sec. Values shown are illustrative and based on the throughput figures provided. This is a framing tool, not a formal benchmark report.
       </div>
     </section>
   </div>
