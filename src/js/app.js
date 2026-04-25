@@ -30,7 +30,7 @@ function getDescription(chain) {
     return `${chain.name} has absurd headroom — enough room for a whole tower of Polymarkets running in parallel.`;
   }
   if (chain.instances >= 10) {
-    return `${chain.name} can comfortably host many full Polymarket-scale apps at once, with room to spare.`;
+    return `${chain.name} can comfortably host many full Polymarket-scale apps at once.`;
   }
   if (chain.instances >= 1) {
     return `${chain.name} can support at least one full Polymarket-equivalent, plus some extra throughput on top.`;
@@ -88,8 +88,6 @@ function renderTable() {
         </div>
       </td>
       <td>${chain.execBlockTime}</td>
-      <td>${chain.metadataBlock}</td>
-      <td>${chain.gasLimitPerBlock}</td>
       <td>${chain.gasPerSec}M</td>
       <td>${chain.instances.toFixed(2)}x</td>
     `;
