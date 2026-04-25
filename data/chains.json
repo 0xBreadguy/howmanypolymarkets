@@ -1,7 +1,7 @@
 [
   {
     "name": "MegaETH",
-    "execBlockTime": "10ms",
+    "execBlockTime": "10",
     "metadataBlock": "1s",
     "gasLimitPerBlock": "3,700M",
     "gasPerSec": 3700,
@@ -10,7 +10,7 @@
   },
   {
     "name": "Monad",
-    "execBlockTime": "400ms",
+    "execBlockTime": "400",
     "metadataBlock": "400ms",
     "gasLimitPerBlock": "200M",
     "gasPerSec": 500,
@@ -19,7 +19,7 @@
   },
   {
     "name": "Base",
-    "execBlockTime": "200ms",
+    "execBlockTime": "200",
     "metadataBlock": "2s",
     "gasLimitPerBlock": "400M",
     "gasPerSec": 200,
@@ -28,7 +28,7 @@
   },
   {
     "name": "BNB Chain",
-    "execBlockTime": "450ms",
+    "execBlockTime": "450",
     "metadataBlock": "450ms",
     "gasLimitPerBlock": "55M",
     "gasPerSec": 122,
@@ -37,7 +37,7 @@
   },
   {
     "name": "Polygon PoS",
-    "execBlockTime": "2s",
+    "execBlockTime": "2000",
     "metadataBlock": "2s",
     "gasLimitPerBlock": "120M",
     "gasPerSec": 60,
@@ -46,7 +46,7 @@
   },
   {
     "name": "Optimism",
-    "execBlockTime": "250ms",
+    "execBlockTime": "250",
     "metadataBlock": "2s",
     "gasLimitPerBlock": "60M",
     "gasPerSec": 30,
@@ -55,7 +55,7 @@
   },
   {
     "name": "Avalanche C",
-    "execBlockTime": "~1s",
+    "execBlockTime": "1000",
     "metadataBlock": "1.5s",
     "gasLimitPerBlock": "40M",
     "gasPerSec": 27,
@@ -64,10 +64,10 @@
   },
   {
     "name": "Arbitrum One",
-    "execBlockTime": "250ms",
+    "execBlockTime": "250",
     "metadataBlock": "250ms",
     "gasLimitPerBlock": "32M",
-    "gasPerSec": 7,
+    "gasPerSec": 14,
     "accent": "#7bd1ff",
     "logo": "./assets/chains/arbitrum-logo.jpg"
   }

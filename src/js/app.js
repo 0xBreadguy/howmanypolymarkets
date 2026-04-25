@@ -6,7 +6,6 @@ const tableBody = document.getElementById('tableBody');
 const instancesEl = document.getElementById('instances');
 const gasPerSecEl = document.getElementById('gasPerSec');
 const fullInstancesEl = document.getElementById('fullInstances');
-const fractionEl = document.getElementById('fraction');
 const descriptionEl = document.getElementById('description');
 const metricLabelEl = document.getElementById('metricLabel');
 const metricDeltaEl = document.getElementById('metricDelta');
@@ -232,7 +231,6 @@ function renderStats(chain, withMotion = false) {
   selectedChainLineEl.textContent = `${chain.gasPerSec}M gas/sec on ${chain.name}`;
   gasPerSecEl.textContent = `${chain.gasPerSec}M`;
   fullInstancesEl.textContent = String(chain.fullInstances);
-  fractionEl.textContent = `${Math.round(chain.fraction * 100)}%`;
   descriptionEl.textContent = getDescription(chain);
 }
 
