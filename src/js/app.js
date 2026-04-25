@@ -118,9 +118,9 @@ function setupPhysics() {
   physicsBox.innerHTML = '';
 
   engine = Engine.create({
-    gravity: { x: 0, y: 1.1 },
-    positionIterations: 8,
-    velocityIterations: 6,
+    gravity: { x: 0, y: 1.12 },
+    positionIterations: 12,
+    velocityIterations: 10,
     constraintIterations: 4,
   });
 
@@ -165,29 +165,30 @@ function buildPile(chain) {
   const width = physicsBox.clientWidth;
   const height = physicsBox.clientHeight;
   const baseCount = Math.max(chain.fullInstances, 1);
-  const tokenSize = width < 700 ? 14 : 16;
+  const bodySize = width < 700 ? 18 : 20;
+  const spriteScale = (width < 700 ? 14 : 15.5) / 64;
   const logoPath = './assets/brand/polymarket-logo.jpg';
 
   for (let i = 0; i < baseCount; i++) {
     const body = Bodies.rectangle(
-      40 + Math.random() * Math.max(width - 80, 40),
-      -40 - (i * 10),
-      tokenSize,
-      tokenSize,
+      50 + Math.random() * Math.max(width - 100, 40),
+      -40 - (i * 9),
+      bodySize,
+      bodySize,
       {
-        restitution: 0.05,
-        friction: 0.95,
-        frictionStatic: 0.9,
-        frictionAir: 0.02,
-        density: 0.0022,
-        chamfer: { radius: 4 },
-        slop: 0.01,
-        angle: (Math.random() - 0.5) * 0.12,
+        restitution: 0.015,
+        friction: 1,
+        frictionStatic: 1,
+        frictionAir: 0.028,
+        density: 0.0032,
+        chamfer: { radius: 5 },
+        slop: 0.001,
+        angle: (Math.random() - 0.5) * 0.05,
         render: {
           sprite: {
             texture: logoPath,
-            xScale: tokenSize / 64,
-            yScale: tokenSize / 64,
+            xScale: spriteScale,
+            yScale: spriteScale,
           },
         },
       }
@@ -199,23 +200,23 @@ function buildPile(chain) {
     const partial = Bodies.rectangle(
       width * 0.5,
       -120,
-      tokenSize,
-      tokenSize,
+      bodySize,
+      bodySize,
       {
-        restitution: 0.05,
-        friction: 0.95,
-        frictionStatic: 0.9,
-        frictionAir: 0.02,
-        density: 0.0022,
-        chamfer: { radius: 4 },
-        slop: 0.01,
-        angle: -0.08,
+        restitution: 0.015,
+        friction: 1,
+        frictionStatic: 1,
+        frictionAir: 0.028,
+        density: 0.0032,
+        chamfer: { radius: 5 },
+        slop: 0.001,
+        angle: -0.04,
         render: {
           opacity: 0.4,
           sprite: {
             texture: logoPath,
-            xScale: tokenSize / 64,
-            yScale: tokenSize / 64,
+            xScale: spriteScale,
+            yScale: spriteScale,
           },
         },
       }
