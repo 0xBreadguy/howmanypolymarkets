@@ -118,7 +118,10 @@ function setupPhysics() {
   physicsBox.innerHTML = '';
 
   engine = Engine.create({
-    gravity: { x: 0, y: 1.05 },
+    gravity: { x: 0, y: 1.1 },
+    positionIterations: 8,
+    velocityIterations: 6,
+    constraintIterations: 4,
   });
 
   render = Render.create({
@@ -137,7 +140,7 @@ function setupPhysics() {
   Render.run(render);
   Runner.run(runner, engine);
 
-  const wallThickness = 80;
+  const wallThickness = 120;
   boundaries = [
     Bodies.rectangle(width / 2, height + wallThickness / 2, width + wallThickness * 2, wallThickness, { isStatic: true, render: { visible: false } }),
     Bodies.rectangle(-wallThickness / 2, height / 2, wallThickness, height * 2, { isStatic: true, render: { visible: false } }),
@@ -160,23 +163,26 @@ function buildPile(chain) {
 
   const { Bodies, Composite } = MatterLib;
   const width = physicsBox.clientWidth;
+  const height = physicsBox.clientHeight;
   const baseCount = Math.max(chain.fullInstances, 1);
-  const radius = width < 700 ? 18 : 20;
-  const tokenSize = radius * 2;
+  const tokenSize = width < 700 ? 14 : 16;
   const logoPath = './assets/brand/polymarket-logo.jpg';
 
   for (let i = 0; i < baseCount; i++) {
     const body = Bodies.rectangle(
-      70 + Math.random() * Math.max(width - 140, 40),
-      -120 - (i * 18),
+      40 + Math.random() * Math.max(width - 80, 40),
+      -40 - (i * 10),
       tokenSize,
       tokenSize,
       {
-        restitution: 0.18,
-        friction: 0.7,
-        frictionAir: 0.012,
-        chamfer: { radius: 10 },
-        angle: (Math.random() - 0.5) * 0.35,
+        restitution: 0.05,
+        friction: 0.95,
+        frictionStatic: 0.9,
+        frictionAir: 0.02,
+        density: 0.0022,
+        chamfer: { radius: 4 },
+        slop: 0.01,
+        angle: (Math.random() - 0.5) * 0.12,
         render: {
           sprite: {
             texture: logoPath,
@@ -191,18 +197,21 @@ function buildPile(chain) {
 
   if (chain.fraction > 0.08) {
     const partial = Bodies.rectangle(
-      width / 2,
-      -200 - baseCount * 12,
+      width * 0.5,
+      -120,
       tokenSize,
       tokenSize,
       {
-        restitution: 0.18,
-        friction: 0.7,
-        frictionAir: 0.012,
-        chamfer: { radius: 10 },
-        angle: -0.18,
+        restitution: 0.05,
+        friction: 0.95,
+        frictionStatic: 0.9,
+        frictionAir: 0.02,
+        density: 0.0022,
+        chamfer: { radius: 4 },
+        slop: 0.01,
+        angle: -0.08,
         render: {
-          opacity: 0.45,
+          opacity: 0.4,
           sprite: {
             texture: logoPath,
             xScale: tokenSize / 64,
