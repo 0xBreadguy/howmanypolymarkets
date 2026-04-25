@@ -48,33 +48,6 @@ textarea {
   padding: 24px 0 36px;
 }
 
-.context-header {
-  text-transform: uppercase;
-  font-size: 1rem;
-  letter-spacing: 0.1em;
-  margin-bottom: 3rem;
-  font-weight: 700;
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.context-header span {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-}
-
-.context-header::before,
-.context-header::after {
-  content: '';
-  display: block;
-  width: 40px;
-  height: 4px;
-  background-color: var(--text);
-}
-
 .hero-metric-stage {
   position: relative;
   width: min(100%, 1080px);
@@ -176,9 +149,18 @@ textarea {
   text-transform: uppercase;
 }
 
+.physics-note-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  margin-bottom: 1.35rem;
+  position: relative;
+  z-index: 3;
+}
+
 .physics-note {
   display: inline-flex;
-  margin-bottom: 1.5rem;
   padding: 6px 10px;
   border: 2px solid var(--text);
   background: var(--text);
@@ -187,9 +169,14 @@ textarea {
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
-  position: relative;
-  z-index: 3;
   box-shadow: -4px 4px 0 var(--shadow);
+}
+
+.physics-note-sub {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
 }
 
 .controls-head {

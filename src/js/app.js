@@ -164,8 +164,8 @@ function buildPile(chain) {
   const width = physicsBox.clientWidth;
   const height = physicsBox.clientHeight;
   const baseCount = Math.max(chain.fullInstances, 1);
-  const bodySize = width < 700 ? 36 : 40;
-  const spriteScale = (width < 700 ? 14 : 15.5) / 64;
+  const bodySize = width < 700 ? 27 : 30;
+  const spriteScale = (width < 700 ? 10.5 : 11.625) / 64;
   const logoPath = './assets/brand/polymarket-logo.jpg';
 
   for (let i = 0; i < baseCount; i++) {
