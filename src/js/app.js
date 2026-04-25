@@ -11,7 +11,6 @@ const descriptionEl = document.getElementById('description');
 const metricLabelEl = document.getElementById('metricLabel');
 const metricDeltaEl = document.getElementById('metricDelta');
 const selectedChainLineEl = document.getElementById('selectedChainLine');
-const vizSummaryEl = document.getElementById('vizSummary');
 const physicsBox = document.getElementById('physicsBox');
 
 let chains = [];
@@ -225,7 +224,6 @@ function buildPile(chain) {
   }
 
   Composite.add(engine.world, tokenBodies);
-  vizSummaryEl.textContent = `${chain.fullInstances}${chain.fraction > 0.08 ? ' + partial' : ''} logos in pile`;
 }
 
 function renderStats(chain, withMotion = false) {

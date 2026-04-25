@@ -176,26 +176,20 @@ textarea {
   text-transform: uppercase;
 }
 
-.selected-chain-line {
-  font-size: 1rem;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: var(--muted);
-  margin-bottom: 0.45rem;
-}
-
 .physics-note {
   display: inline-flex;
   margin-bottom: 1.5rem;
   padding: 6px 10px;
   border: 2px solid var(--text);
-  background: #fff;
+  background: var(--text);
+  color: var(--bg);
   font-size: 0.8rem;
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.06em;
   position: relative;
   z-index: 3;
+  box-shadow: -4px 4px 0 var(--shadow);
 }
 
 .controls-head {
