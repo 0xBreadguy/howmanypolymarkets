@@ -61,13 +61,5 @@
     "gasPerSec": 27,
     "accent": "#ff875c",
     "logo": "./assets/chains/avalanche-logo.jpg"
-  },
-  {
-    "name": "Arbitrum One",
-    "execBlockTime": "250ms",
-    "metadataBlock": "250ms",
-    "gasLimitPerBlock": "32M",
-    "gasPerSec": 7,
-    "accent": "#7bd1ff"
   }
 ]
