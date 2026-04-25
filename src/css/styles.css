@@ -155,17 +155,18 @@ textarea {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   color: var(--muted);
-  margin-bottom: 1.4rem;
+  margin-bottom: 0.75rem;
 }
 
 .physics-stage {
   width: min(100%, 1040px);
-  margin-bottom: 2rem;
+  margin-bottom: 1.6rem;
+  position: relative;
 }
 
 .physics-note {
   display: inline-flex;
-  margin-bottom: 10px;
+  margin-bottom: 6px;
   padding: 6px 10px;
   border: 2px solid var(--text);
   background: #fff;
@@ -178,12 +179,20 @@ textarea {
 .physics-box {
   position: relative;
   width: 100%;
-  height: 420px;
-  border: 4px solid var(--text);
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.6), rgba(235,235,235,0.9));
-  box-shadow: -10px 10px 0 var(--shadow);
+  height: 240px;
   overflow: hidden;
+  background: transparent;
+}
+
+.physics-box::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 4px;
+  background: var(--text);
+  box-shadow: -6px 6px 0 var(--shadow);
 }
 
 .physics-box canvas {
@@ -411,7 +420,7 @@ th {
   }
 
   .physics-box {
-    height: 360px;
+    height: 210px;
   }
 }
 
@@ -434,6 +443,6 @@ th {
   }
 
   .physics-box {
-    height: 320px;
+    height: 180px;
   }
 }
