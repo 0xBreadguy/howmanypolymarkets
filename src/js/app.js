@@ -1,17 +1,18 @@
 const polymarketGasPerSec = 11;
+const visibleRainCap = 42;
 
 const selector = document.getElementById('selector');
-const stack = document.getElementById('stack');
 const tableBody = document.getElementById('tableBody');
 const instancesEl = document.getElementById('instances');
 const gasPerSecEl = document.getElementById('gasPerSec');
 const fullInstancesEl = document.getElementById('fullInstances');
 const fractionEl = document.getElementById('fraction');
 const descriptionEl = document.getElementById('description');
-const eyebrowChainEl = document.getElementById('eyebrowChain');
+const metricLabelEl = document.getElementById('metricLabel');
+const metricDeltaEl = document.getElementById('metricDelta');
+const selectedChainLineEl = document.getElementById('selectedChainLine');
 const vizSummaryEl = document.getElementById('vizSummary');
-const statPanel = document.getElementById('statPanel');
-const selectedChainLogo = document.getElementById('selectedChainLogo');
+const rainLayer = document.getElementById('rainLayer');
 
 let chains = [];
 let activeChain = null;
@@ -22,7 +23,7 @@ function formatInstances(value) {
 
 function getDescription(chain) {
   if (chain.instances >= 100) {
-    return `${chain.name} has absurd headroom here — enough room for a whole tower of Polymarkets running in parallel.`;
+    return `${chain.name} has absurd headroom — enough room for a whole tower of Polymarkets running in parallel.`;
   }
   if (chain.instances >= 10) {
     return `${chain.name} can comfortably host many full Polymarket-scale apps at once, with room to spare.`;
@@ -53,67 +54,21 @@ function renderSelector() {
   selector.innerHTML = '';
   chains.forEach(chain => {
     const button = document.createElement('button');
-    button.className = 'chain-btn' + (chain.name === activeChain.name ? ' active' : '');
-    button.style.setProperty('--accent', chain.accent);
+    button.className = 'toggle-btn' + (chain.name === activeChain.name ? ' active' : '');
     button.innerHTML = `
       ${logoMarkup(chain, 'chain-logo')}
       <div class="chain-copy">
         <span class="chain-name">${chain.name}</span>
-        <span class="chain-meta">${chain.gasPerSec}M gas/sec • ${formatInstances(chain.instances)}x</span>
+        <span class="chain-meta">${formatInstances(chain.instances)}x Polymarkets</span>
       </div>
     `;
     button.addEventListener('click', () => {
+      if (activeChain?.name === chain.name) return;
       activeChain = chain;
-      renderAll();
+      renderAll(true);
     });
     selector.appendChild(button);
   });
-}
-
-function renderStack(chain) {
-  stack.innerHTML = '';
-  const totalCards = Math.min(chain.fullInstances + (chain.fraction > 0 ? 1 : 0), 48);
-  const overflow = (chain.fullInstances + (chain.fraction > 0 ? 1 : 0)) - totalCards;
-
-  for (let i = 0; i < totalCards; i++) {
-    const isPartial = i === totalCards - 1 && chain.fraction > 0 && i >= chain.fullInstances;
-    const fill = isPartial ? Math.max(chain.fraction, 0.12) : 1;
-    const div = document.createElement('div');
-    div.className = 'market' + (isPartial ? ' partial' : '');
-    div.style.setProperty('--accent', chain.accent);
-    div.style.setProperty('--fill', fill);
-    div.style.animationDelay = `${Math.min(i * 16, 280)}ms`;
-    div.innerHTML = `
-      <div class="market-inner">
-        <div class="market-top">
-          <span class="tag">Polymarket</span>
-          ${logoMarkup(chain, 'market-logo')}
-        </div>
-        <strong>${isPartial ? Math.round(chain.fraction * 100) + '% of one' : 'Full instance'}</strong>
-      </div>
-    `;
-    stack.appendChild(div);
-  }
-
-  if (overflow > 0) {
-    const more = document.createElement('div');
-    more.className = 'market';
-    more.style.setProperty('--accent', chain.accent);
-    more.style.setProperty('--fill', 0.18);
-    more.innerHTML = `
-      <div class="market-inner">
-        <div class="market-top">
-          <span class="tag">+${overflow}</span>
-          ${logoMarkup(chain, 'market-logo')}
-        </div>
-        <strong>more beyond the visible stack</strong>
-      </div>
-    `;
-    stack.appendChild(more);
-  }
-
-  const rawVisible = totalCards + (overflow > 0 ? 1 : 0);
-  vizSummaryEl.textContent = `${rawVisible} card${rawVisible === 1 ? '' : 's'} shown`;
 }
 
 function renderTable() {
@@ -135,29 +90,66 @@ function renderTable() {
       <td>${chain.instances.toFixed(2)}x</td>
     `;
     tr.addEventListener('click', () => {
+      if (activeChain?.name === chain.name) return;
       activeChain = chain;
-      renderAll();
+      renderAll(true);
     });
     tableBody.appendChild(tr);
   });
 }
 
-function renderStats(chain) {
+function animateMetric() {
+  instancesEl.classList.remove('updating');
+  void instancesEl.offsetWidth;
+  instancesEl.classList.add('updating');
+  setTimeout(() => instancesEl.classList.remove('updating'), 180);
+}
+
+function clearRain() {
+  rainLayer.innerHTML = '';
+}
+
+function triggerRain(chain) {
+  clearRain();
+  const logoPath = './assets/brand/polymarket-logo.jpg';
+  const count = Math.min(Math.max(Math.round(chain.instances), 1), visibleRainCap);
+  const overflow = Math.max(0, Math.round(chain.instances) - count);
+
+  for (let i = 0; i < count; i++) {
+    const img = document.createElement('img');
+    img.className = 'rain-logo';
+    img.src = logoPath;
+    img.alt = '';
+    img.style.left = `${Math.random() * 100}%`;
+    img.style.setProperty('--dur', `${1400 + Math.random() * 1200}ms`);
+    img.style.setProperty('--rot', `${-18 + Math.random() * 36}deg`);
+    img.style.animationDelay = `${Math.random() * 300}ms`;
+    rainLayer.appendChild(img);
+    setTimeout(() => img.remove(), 3200);
+  }
+
+  vizSummaryEl.textContent = overflow > 0
+    ? `${count}+ logos raining`
+    : `${count} logos raining`;
+}
+
+function renderStats(chain, withMotion = false) {
+  if (withMotion) animateMetric();
   instancesEl.textContent = `${formatInstances(chain.instances)}x`;
+  metricLabelEl.textContent = `Polymarkets on ${chain.name}`;
+  metricDeltaEl.textContent = chain.instances >= 1 ? 'can fit at once' : 'of one Polymarket';
+  selectedChainLineEl.textContent = `${chain.gasPerSec}M gas/sec on ${chain.name}`;
   gasPerSecEl.textContent = `${chain.gasPerSec}M`;
   fullInstancesEl.textContent = String(chain.fullInstances);
   fractionEl.textContent = `${Math.round(chain.fraction * 100)}%`;
   descriptionEl.textContent = getDescription(chain);
-  eyebrowChainEl.textContent = chain.name;
-  statPanel.style.setProperty('--accent', chain.accent);
-  selectedChainLogo.innerHTML = logoMarkup(chain, 'selected-logo-img');
 }
 
-function renderAll() {
+function renderAll(withMotion = false) {
   renderSelector();
-  renderStats(activeChain);
-  renderStack(activeChain);
+  renderStats(activeChain, withMotion);
   renderTable();
+  if (withMotion) triggerRain(activeChain);
 }
 
 async function init() {
@@ -177,7 +169,8 @@ async function init() {
   });
 
   activeChain = chains[0];
-  renderAll();
+  renderAll(false);
+  triggerRain(activeChain);
 }
 
 init().catch(error => {

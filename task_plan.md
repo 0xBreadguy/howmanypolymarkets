@@ -1,18 +1,18 @@
 # Task Plan
 
 ## Goal
-Polish the Git-backed `howmanypolymarkets` microsite so it feels intentional and visually strong now that deployment is finally sane.
+Redesign `howmanypolymarkets` around a bold editorial metric aesthetic inspired by the Variant reference: giant centered multiplier, sparse supporting copy, chunky chain toggles, and a logo-rain interaction keyed to chain capacity.
 
 ## Phases
-- [in_progress] Identify highest-leverage visual/design improvements
-- [pending] Refine hero, selector, stats, and card styling
-- [pending] Improve information hierarchy and copy treatment
-- [pending] Commit and push polish pass
+- [in_progress] Replace current dark dashboard layout with poster-style metric layout
+- [pending] Add chain-triggered Polymarket logo rain animation
+- [pending] Preserve comparison data section in a secondary role
+- [pending] Commit and push redesign
 
 ## Decisions
-- Keep site lightweight and static
-- Preserve current interaction model
-- Improve visual hierarchy more than adding new features
+- Prioritize layout and interaction over final copy polish
+- Keep the site static and lightweight
+- Cap visible logo rain for extreme values while preserving the feeling of scale
 
 ## Errors Encountered
 - None yet

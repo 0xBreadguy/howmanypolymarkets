@@ -5,109 +5,83 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>How Many Polymarkets Fit?</title>
   <meta name="description" content="A playful microsite comparing blockchain throughput against a Polymarket-scale app using ~11M gas/sec." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="./src/css/styles.css" />
 </head>
 <body>
-  <div class="wrap">
-    <section class="hero">
-      <div class="card intro">
-        <div class="hero-topline">
-          <div class="eyebrow">⚖️ Polymarket capacity simulator</div>
-          <div class="hero-badge">~11M gas/sec baseline</div>
-        </div>
-        <h1>How many Polymarkets fit on your chain?</h1>
-        <p class="lead">
-          A simple way to visualize how much real application capacity different chains can support. Pick a chain and see how many parallel <strong>Polymarket-scale</strong> apps its throughput can sustain.
-        </p>
+  <div class="rain-layer" id="rainLayer" aria-hidden="true"></div>
 
-        <div class="hero-strip">
-          <div class="hero-strip-card">
-            <div class="hero-strip-k">Reference app</div>
-            <div class="hero-strip-v hero-strip-brand">
-              <img src="./assets/brand/polymarket-logo.jpg" alt="Polymarket logo" class="hero-brand-logo" />
-              <span>Polymarket</span>
-            </div>
-          </div>
-          <div class="hero-strip-card">
-            <div class="hero-strip-k">Throughput target</div>
-            <div class="hero-strip-v">11M gas/sec</div>
-          </div>
-          <div class="hero-strip-card">
-            <div class="hero-strip-k">Question</div>
-            <div class="hero-strip-v">How many can fit?</div>
-          </div>
-        </div>
-
-        <div class="selector-head">
-          <h2>Select a chain</h2>
-          <p>Use the chain roster below to swap the view instantly.</p>
-        </div>
-        <div class="selector" id="selector"></div>
+  <main class="page-shell">
+    <section class="hero-stage">
+      <div class="context-header">
+        <span>Polymarket baseline</span>
+        <strong>~11M gas/sec</strong>
       </div>
 
-      <div class="card stat-panel" id="statPanel">
-        <div class="stat-header">
-          <div>
-            <div class="eyebrow" id="eyebrowChain">Selected chain</div>
-            <div class="big-stat" id="instances">0x</div>
-            <div class="big-label">simultaneous Polymarkets</div>
-            <div class="big-sub" id="description"></div>
-          </div>
-          <div class="selected-chain-logo" id="selectedChainLogo"></div>
-        </div>
-        <div class="mini-grid">
-          <div class="mini">
-            <div class="k">Gas / Sec</div>
-            <div class="v" id="gasPerSec">0M</div>
-          </div>
-          <div class="mini">
-            <div class="k">Full Instances</div>
-            <div class="v" id="fullInstances">0</div>
-          </div>
-          <div class="mini">
-            <div class="k">Last Fraction</div>
-            <div class="v" id="fraction">0%</div>
-          </div>
-        </div>
+      <div class="metric-display">
+        <div class="metric-label" id="metricLabel">Polymarkets on MegaETH</div>
+        <div class="metric-value" id="instances">0x</div>
+        <div class="metric-delta" id="metricDelta">can fit at once</div>
       </div>
-    </section>
 
-    <section class="card viz">
-      <div class="viz-head">
+      <div class="selected-chain-line" id="selectedChainLine"></div>
+
+      <div class="controls-head">
         <div>
-          <h2>Capacity rendered as stacked Polymarkets</h2>
-          <p>Each tile represents one Polymarket-scale app running at roughly 11M gas/sec.</p>
+          <div class="controls-title">Select a chain</div>
+          <div class="controls-sub">Switch chains and watch the Polymarkets rain down.</div>
         </div>
-        <div class="pill" id="vizSummary">0 cards shown</div>
       </div>
-      <div class="stack" id="stack"></div>
+
+      <div class="controls" id="selector"></div>
     </section>
 
-    <section class="card table-card">
+    <section class="secondary-panel">
+      <div class="stats-grid">
+        <div class="mini">
+          <div class="k">Gas / Sec</div>
+          <div class="v" id="gasPerSec">0M</div>
+        </div>
+        <div class="mini">
+          <div class="k">Full Instances</div>
+          <div class="v" id="fullInstances">0</div>
+        </div>
+        <div class="mini">
+          <div class="k">Last Fraction</div>
+          <div class="v" id="fraction">0%</div>
+        </div>
+      </div>
+
+      <p class="description" id="description"></p>
+
       <div class="table-head">
-        <div>
-          <h2>Full comparison</h2>
-          <p>Throughput figures and rough Polymarket-equivalent capacity across the compared chains.</p>
-        </div>
+        <h2>Chain comparison</h2>
+        <div class="pill" id="vizSummary">0 logos shown</div>
       </div>
-      <table>
-        <thead>
-          <tr>
-            <th>Chain</th>
-            <th>Exec Block Time</th>
-            <th>Metadata Block</th>
-            <th>Gas Limit / Metadata Block</th>
-            <th>Gas / Sec</th>
-            <th>Polymarkets</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
-      </table>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Chain</th>
+              <th>Exec Block Time</th>
+              <th>Metadata Block</th>
+              <th>Gas Limit / Metadata Block</th>
+              <th>Gas / Sec</th>
+              <th>Polymarkets</th>
+            </tr>
+          </thead>
+          <tbody id="tableBody"></tbody>
+        </table>
+      </div>
+
       <div class="footer-note">
-        Assumption: one Polymarket instance uses ~11M gas/sec. Values shown are illustrative and based on the throughput figures provided. This is a framing tool, not a formal benchmark report.
+        Assumption: one Polymarket instance uses ~11M gas/sec. Values shown are illustrative and intended as a simple capacity framing tool.
       </div>
     </section>
-  </div>
+  </main>
 
   <script type="module" src="./src/js/app.js"></script>
 </body>
