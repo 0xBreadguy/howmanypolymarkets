@@ -32,6 +32,22 @@ function getDescription(chain) {
   return `${chain.name} does not reach a full Polymarket at this throughput target — it only covers part of one.`;
 }
 
+function initials(name) {
+  return name
+    .split(/\s+/)
+    .map(part => part[0])
+    .join('')
+    .slice(0, 3)
+    .toUpperCase();
+}
+
+function logoMarkup(chain, className) {
+  if (chain.logo) {
+    return `<img class="${className}" src="${chain.logo}" alt="${chain.name} logo" />`;
+  }
+  return `<div class="${className} placeholder" aria-hidden="true">${initials(chain.name)}</div>`;
+}
+
 function renderSelector() {
   selector.innerHTML = '';
   chains.forEach(chain => {
@@ -39,8 +55,11 @@ function renderSelector() {
     button.className = 'chain-btn' + (chain.name === activeChain.name ? ' active' : '');
     button.style.setProperty('--accent', chain.accent);
     button.innerHTML = `
-      <span class="chain-name">${chain.name}</span>
-      <span class="chain-meta">${chain.gasPerSec}M gas/sec • ${formatInstances(chain.instances)}x</span>
+      ${logoMarkup(chain, 'chain-logo')}
+      <div class="chain-copy">
+        <span class="chain-name">${chain.name}</span>
+        <span class="chain-meta">${chain.gasPerSec}M gas/sec • ${formatInstances(chain.instances)}x</span>
+      </div>
     `;
     button.addEventListener('click', () => {
       activeChain = chain;
@@ -65,7 +84,10 @@ function renderStack(chain) {
     div.style.animationDelay = `${Math.min(i * 16, 280)}ms`;
     div.innerHTML = `
       <div class="market-inner">
-        <span class="tag">Polymarket</span>
+        <div class="market-top">
+          <span class="tag">Polymarket</span>
+          ${logoMarkup(chain, 'market-logo')}
+        </div>
         <strong>${isPartial ? Math.round(chain.fraction * 100) + '% of one' : 'Full instance'}</strong>
       </div>
     `;
@@ -79,7 +101,10 @@ function renderStack(chain) {
     more.style.setProperty('--fill', 0.18);
     more.innerHTML = `
       <div class="market-inner">
-        <span class="tag">+${overflow}</span>
+        <div class="market-top">
+          <span class="tag">+${overflow}</span>
+          ${logoMarkup(chain, 'market-logo')}
+        </div>
         <strong>more beyond the visible stack</strong>
       </div>
     `;
@@ -96,7 +121,12 @@ function renderTable() {
     const tr = document.createElement('tr');
     if (chain.name === activeChain.name) tr.className = 'row-active';
     tr.innerHTML = `
-      <td><strong>${chain.name}</strong></td>
+      <td>
+        <div class="table-chain">
+          ${logoMarkup(chain, 'table-logo')}
+          <strong>${chain.name}</strong>
+        </div>
+      </td>
       <td>${chain.execBlockTime}</td>
       <td>${chain.metadataBlock}</td>
       <td>${chain.gasLimitPerBlock}</td>

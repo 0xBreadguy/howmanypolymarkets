@@ -5,7 +5,8 @@
     "metadataBlock": "1s",
     "gasLimitPerBlock": "3,700M",
     "gasPerSec": 3700,
-    "accent": "#7cff9f"
+    "accent": "#7cff9f",
+    "logo": "./assets/chains/megaeth-logo.jpg"
   },
   {
     "name": "Monad",
@@ -13,7 +14,8 @@
     "metadataBlock": "400ms",
     "gasLimitPerBlock": "200M",
     "gasPerSec": 500,
-    "accent": "#c190ff"
+    "accent": "#c190ff",
+    "logo": "./assets/chains/monad-logo.jpg"
   },
   {
     "name": "Base",
@@ -21,7 +23,8 @@
     "metadataBlock": "2s",
     "gasLimitPerBlock": "400M",
     "gasPerSec": 200,
-    "accent": "#5db4ff"
+    "accent": "#5db4ff",
+    "logo": "./assets/chains/base-logo.jpg"
   },
   {
     "name": "BNB Chain",
@@ -29,7 +32,8 @@
     "metadataBlock": "450ms",
     "gasLimitPerBlock": "55M",
     "gasPerSec": 122,
-    "accent": "#ffd86b"
+    "accent": "#ffd86b",
+    "logo": "./assets/chains/bnb-chain-logo.jpg"
   },
   {
     "name": "Polygon PoS",
@@ -37,7 +41,8 @@
     "metadataBlock": "2s",
     "gasLimitPerBlock": "120M",
     "gasPerSec": 60,
-    "accent": "#b08cff"
+    "accent": "#b08cff",
+    "logo": "./assets/chains/polygon-logo.jpg"
   },
   {
     "name": "Optimism",
@@ -45,7 +50,8 @@
     "metadataBlock": "2s",
     "gasLimitPerBlock": "60M",
     "gasPerSec": 30,
-    "accent": "#ff6b7a"
+    "accent": "#ff6b7a",
+    "logo": "./assets/chains/optimism-logo.jpg"
   },
   {
     "name": "Avalanche C",
@@ -53,7 +59,8 @@
     "metadataBlock": "1.5s",
     "gasLimitPerBlock": "40M",
     "gasPerSec": 27,
-    "accent": "#ff875c"
+    "accent": "#ff875c",
+    "logo": "./assets/chains/avalanche-logo.jpg"
   },
   {
     "name": "Arbitrum One",
